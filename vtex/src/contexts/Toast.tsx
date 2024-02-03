@@ -29,6 +29,7 @@ export const ToastProvider: React.FC<{ children: any }> = ({ children }) => {
         text,
         type,
       };
+
       setToastsList((prevState) => [...prevState, newToast]);
     },
     []
@@ -43,15 +44,15 @@ export const ToastProvider: React.FC<{ children: any }> = ({ children }) => {
   );
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (toastsList.length) {
+    if (toastsList.length > 0) {
+      const timeout = setTimeout(() => {
         removeToast(toastsList[0].id);
-      }
-    }, 3000);
+      }, 3000);
 
-    return () => {
-      clearTimeout(timeout);
-    };
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
   }, [toastsList, removeToast]);
 
   return (

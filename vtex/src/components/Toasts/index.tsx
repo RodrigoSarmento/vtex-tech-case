@@ -1,4 +1,4 @@
-import { MdClose, MdError, MdWarning, MdInfo, MdDone } from 'react-icons';
+import { MdClose, MdError, MdWarning, MdInfo, MdDone } from 'react-icons/md';
 import { Container, Toast } from './styles';
 
 const icons = {

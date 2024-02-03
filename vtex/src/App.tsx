@@ -20,6 +20,9 @@ function App() {
       onError: () => {
         addToast('Error sending ticket');
       },
+      onSuccess: () => {
+        addToast('Success sending ticket');
+      },
     }
   );
 
@@ -101,12 +104,7 @@ function App() {
             <FormError>{formik.errors.detailing}</FormError>
           )}
         </FormGroup>
-        <SaveButton
-          type="submit"
-          onClick={() => {
-            addToast('saoinfosf');
-          }}
-        >
+        <SaveButton type="button" onClick={() => {}}>
           Send
         </SaveButton>
       </Form>
