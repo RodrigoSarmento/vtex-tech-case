@@ -1,0 +1,2 @@
+export const base64Code =
+  'cm9kcmlnb3Nhcm1lbnRveHhAZ21haWwuY29tL3Rva2VuOmRsM1YyWmxOd0FzT2V1bU9CYVluZVpZbVptSzlwQUFaclRNZ2h4bTQ=';
