@@ -8,8 +8,42 @@ declare global {
     textColor?: string;
   }
 
+  type TSubjectTag = 'orders' | 'payments' | 'catalog' | 'others';
+
+  interface IField {
+    name: string;
+    zendeskId: number;
+    type: 'number' | 'boolean' | 'dropdown' | 'image';
+    dropDownItems?: IDropDownItem[];
+    parent: TSubjectTag;
+  }
+
+  interface IFieldError extends IFieldInput {
+    errorMessage: string;
+  }
+
+  interface IDropDownItem {
+    name: string;
+    tag: string;
+  }
+
+  interface IFieldInput extends IField {
+    value: any;
+  }
+
+  interface ISubject {
+    name: string;
+    tag: TSubjectTag;
+    fields: IField[];
+  }
+
   interface IRequestConfig extends AxiosRequestConfig {
     method: Method;
+    url: string;
+  }
+
+  interface IImage {
+    token: string;
     url: string;
   }
 
@@ -21,8 +55,13 @@ declare global {
 
   interface ITicketBody {
     comment: { body: string };
-    priority: 'urgent' | 'low' | 'normal' | 'high';
-    subject: string;
+    priority: 'urgent' | 'low' | 'ICustomFieldZendesk' | 'high';
+    custom_fields: ICustomFieldTicket[];
+  }
+
+  interface ICustomFieldZendesk {
+    id: number;
+    value: string | number | string[];
   }
 
   interface ITicketData {

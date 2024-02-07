@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useMemo, useCallback } from 'react';
 
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { base64Code } from '../../settings';
+import { base64Code, oauth } from '../../settings';
 import { baseUrl } from './settings';
 
 interface IApiContextValues {
@@ -22,9 +22,9 @@ const ApiProvider: React.FC<{ children: any }> = ({ children }) => {
       axios.create({
         baseURL: baseUrl,
         headers: {
+          'Content-Type': 'application/json',
           Accept: 'application/json',
-          'Accept-Language': navigator.language,
-          Authorization: `Basic ${base64Code}`,
+          Authorization: `Basic cm9kcmlnb3Nhcm1lbnRveHhAZ21haWwuY29tL3Rva2VuOmRsM1YyWmxOd0FzT2V1bU9CYVluZVpZbVptSzlwQUFaclRNZ2h4bTQ=`,
         },
       }),
     []
