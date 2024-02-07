@@ -145,7 +145,6 @@ const App: React.FC = () => {
           ],
         },
       } as ITicketData;
-      console.log(JSON.stringify(data));
 
       onCreateTicket.mutate(data);
     },
@@ -169,6 +168,24 @@ const App: React.FC = () => {
       (item) => item.zendeskId !== field.zendeskId
     );
     setDynamicFormInputsErros(filteredList);
+  };
+
+  const onSubjectChange = (value: ISubject) => {
+    setSubjectSelected(value);
+    let find;
+    for (let i = 0; i < dynamicFormInputs.length; i++) {
+      find = value.fields.find(
+        (field) => field.zendeskId === dynamicFormInputs[i].zendeskId
+      );
+      if (find) return;
+    }
+
+    if (!find) {
+      setDynamicFormInputs([
+        ...dynamicFormInputs,
+        ...returnPopulatedSubjectFields(value),
+      ]);
+    }
   };
 
   const renderDynamicForm = (field: IField) => {
@@ -213,7 +230,7 @@ const App: React.FC = () => {
         <FormGroup key={find.zendeskId}>
           <div>
             <CheckboxItem>
-              <FormLabel htmlFor={find.name}>Affecting all users?</FormLabel>
+              <FormLabel htmlFor={find.name}>{find.name}</FormLabel>
               <CheckBox
                 name={find.name}
                 id={find.name}
@@ -287,24 +304,7 @@ const App: React.FC = () => {
             <Label>Subject</Label>
             <DropDown
               selectedValue={subjectSelected}
-              onChange={(value) => {
-                setSubjectSelected(value);
-                let find;
-                for (let i = 0; i < dynamicFormInputs.length; i++) {
-                  find = value.fields.find(
-                    (field) =>
-                      field.zendeskId === dynamicFormInputs[i].zendeskId
-                  );
-                  if (find) return;
-                }
-
-                if (!find) {
-                  setDynamicFormInputs([
-                    ...dynamicFormInputs,
-                    ...returnPopulatedSubjectFields(value),
-                  ]);
-                }
-              }}
+              onChange={onSubjectChange}
             />
           </FormGroup>
           <FormGroup>
